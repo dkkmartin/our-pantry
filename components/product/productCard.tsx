@@ -3,9 +3,14 @@ import { Product } from '@/types/productType'
 import { CheckCircle2 } from 'lucide-react'
 import { Button } from '../ui/button'
 
-export default function ProductCard({ product }: { product: Product }) {
+interface Props {
+  product: Product & { scannedId: string }
+  onRemove: (scannedId: string) => void
+}
+
+export default function ProductCard({ product, onRemove }: Props) {
   return (
-    <Card className="min-w-[50vw]">
+    <Card className="w-full">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <CheckCircle2 className="h-5 w-5 text-green-500" />
@@ -27,7 +32,11 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
 
-        <Button variant="destructive" className="w-full">
+        <Button
+          variant="destructive"
+          className="w-full"
+          onClick={() => onRemove(product.scannedId)}
+        >
           Remove
         </Button>
       </CardContent>
